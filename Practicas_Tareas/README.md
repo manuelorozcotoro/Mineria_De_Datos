@@ -3,7 +3,7 @@
 **INDEX**
 
 * [1.-Test the Law Of Large Numbers for N random normally distributed numbers with mean = 0, stdev=1](#item1)
-* [2.-](#item2)
+* [2.-Practice find 20 more funtions in R and make an example of it.](#item2)
 
 <a name="item1"></a>
 
@@ -48,4 +48,47 @@ for(i in rnorm(-1:1)){
 # 6. return a result <- counter / N
 result<- counter / N
 print(result)
+```
+
+<a name="item2"></a>
+
+**Practice find 20 more funtions in R and make an example of it.:**
+```
+# variable for example
+dt <- cars
+
+#1. length(): Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.
+length(dt)
+
+#2. abs(): Computes the absolute value of x, sqrt(x) computes the (principal) square root of x, √{x}.
+abs(dt)
+
+#3. exp(): By default natural logarithms, log10 computes common (i.e., base 10) logarithms, and log2 computes binary (i.e., base 2) logarithms. The general form log(x, base) computes logarithms with base base.
+exp(dt)
+
+#4. mean(): Generic function for the (trimmed) arithmetic mean.
+mean(dt)
+
+#5. sum(): Sum returns the sum of all the values present in its arguments.
+sum(dt)
+
+#6. min(): Take one or more vectors as arguments, recycle them to common length and return a single vector giving the ‘parallel’ maxima (or minima) of the argument vectors.
+min(dt)
+
+#7. max(): Returns the (regular or parallel) maxima and minima of the input values.
+min(dt)
+
+#8. sd(): This function computes the standard deviation of the values in x. If na.rm is TRUE then missing values are removed before computation proceeds.
+sd(dt)
+
+#9. coef(): is a generic function which extracts model coefficients from objects returned by modeling functions. coefficients is an alias for it.
+coef(dt)
+
+#10. factorial(): Special mathematical functions related to the beta and gamma functions.
+factorial(dt)
+
+#11. 
+
+#12.
+
 ```
