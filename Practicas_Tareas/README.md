@@ -54,38 +54,50 @@ print(result)
 
 **Practice find 20 more funtions in R and make an example of it.:**
 ```
-# variable for example
-dt <- cars
 
 #1. length(): Get or set the length of vectors (including lists) and factors, and of any other R object for which a method has been defined.
-length(dt)
+length(diag(4))
 
 #2. abs(): Computes the absolute value of x, sqrt(x) computes the (principal) square root of x, √{x}.
-abs(dt)
+require(stats) # for spline
+require(graphics)
+xx <- -9:9
+plot(xx, sqrt(abs(xx)),  col = "red")
+lines(spline(xx, sqrt(abs(xx)), n=101), col = "pink")
+
 
 #3. exp(): By default natural logarithms, log10 computes common (i.e., base 10) logarithms, and log2 computes binary (i.e., base 2) logarithms. The general form log(x, base) computes logarithms with base base.
-exp(dt)
+log(exp(3))
 
 #4. mean(): Generic function for the (trimmed) arithmetic mean.
-mean(dt)
+x <- c(0:10, 50)
+xm <- mean(x)
+c(xm, mean(x, trim = 0.10))
 
 #5. sum(): Sum returns the sum of all the values present in its arguments.
-sum(dt)
+sum(1:5)
 
 #6. min(): Take one or more vectors as arguments, recycle them to common length and return a single vector giving the ‘parallel’ maxima (or minima) of the argument vectors.
-min(dt)
+min(5:1, pi)
 
 #7. max(): Returns the (regular or parallel) maxima and minima of the input values.
-min(dt)
+max(5:1, pi)
 
 #8. sd(): This function computes the standard deviation of the values in x. If na.rm is TRUE then missing values are removed before computation proceeds.
-sd(dt)
+sd(1:2) ^ 2
 
 #9. coef(): is a generic function which extracts model coefficients from objects returned by modeling functions. coefficients is an alias for it.
-coef(dt)
+x <- 1:5; coef(lm(c(1:3, 7, 6) ~ x))
 
 #10. factorial(): Special mathematical functions related to the beta and gamma functions.
-factorial(dt)
+require(graphics)
+
+choose(5, 2)
+for (n in 0:10) print(choose(n, k = 0:n))
+
+factorial(100)
+lfactorial(10000)
+
 
 #11. 
 
