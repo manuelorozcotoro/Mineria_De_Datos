@@ -99,14 +99,14 @@ for (n in 0:10) print(choose(n, k = 0:n))
 factorial(100)
 lfactorial(10000)
 ```
-#11. ls()
+#11. ls(): We will review how many objects we have created in R. For our case we write the function list ls ()
 
 ```
 var a : int =10
 ls()
 ```
 
-#12. geometric()
+#12. geometric(): geometric mean
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
@@ -114,21 +114,21 @@ geometric<-function(x) exp(sum(log(x))/length(x))
 geometric(x)
 ```
 
-#13. armonic
+#13. armonic: Harmonic average
 ```
 x<- c(0, 3, 6, 7, 9, 12)
 armonic<-1/mean(1/x)
 armonic
 ```
 
-#14. median()
+#14. median(): Median
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
 median(x)
 ```
 
-#15. variance()
+#15. variance(): Varianza
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
@@ -136,21 +136,21 @@ variance <- function (x)   sum((x-mean(x))^2)/(length(x)-1) #escrita como una fu
 variance(x)
 ```
 
-#16. range()
+#16. range(): Shows the range, value (min) and value (max) of the variable x.
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
 range(x)
 ```
 
-#17. quantile()
+#17. quantile(): Show the quartiles of the variable x
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
 quantile(x)
 ```
 
-#18. skewness()
+#18. skewness(): Gives us the value of the asymmetry of the data of the variable x
 
 ```
 x<- c(0, 3, 6, 7, 9, 12)
@@ -158,7 +158,7 @@ library(moments)
 skewness(x)
 ```
 
-#19. kurtosis()
+#19. kurtosis(): Gives us the flattening of the distribution of the data of the variable x.
 
 ```
 library(moments)
@@ -166,7 +166,7 @@ x<- c(0, 3, 6, 7, 9, 12)
 kurtosis(x)
 ```
 
-#20. ceiling()
+#20. ceiling(): Returns the first integer greater than x
 
 ```
 ceiling(4.3)
@@ -175,6 +175,7 @@ ceiling(4.3)
 <a name="item3"></a>
 
 **You are a Data Scientist working for a consulting firm.**
+
 #Practice 3
 
 Scenario: You are a Data Scientist working for a consulting firm.
