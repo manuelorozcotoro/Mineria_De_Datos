@@ -4,7 +4,7 @@
 #1. length()
 length(diag(4))
 
-#2. abs() 
+#2. abs()
 require(stats) # for spline
 require(graphics)
 xx <- -9:9
@@ -45,9 +45,46 @@ factorial(100)
 lfactorial(10000)
 
 
-#11. 
+#11. ls()
+var a : int =10
+ls()
 
-#12.
+#12. geometric()
+x<- c(0, 3, 6, 7, 9, 12)
+geometric<-function(x) exp(sum(log(x))/length(x))
+geometric(x)
 
-#13.
+#13. armonic
+x<- c(0, 3, 6, 7, 9, 12)
+armonic<-1/mean(1/x)
+armonic
 
+#14. median()
+x<- c(0, 3, 6, 7, 9, 12)
+median(x)
+
+#15. variance()
+x<- c(0, 3, 6, 7, 9, 12)
+variance <- function (x)   sum((x-mean(x))^2)/(length(x)-1) #escrita como una funcion
+variance(x)
+
+#16. range()
+x<- c(0, 3, 6, 7, 9, 12)
+range(x)
+
+#17. quantile()
+x<- c(0, 3, 6, 7, 9, 12)
+quantile(x)
+
+#18. skewness()
+x<- c(0, 3, 6, 7, 9, 12)
+library(moments)
+skewness(x)
+
+#19. kurtosis()
+library(moments)
+x<- c(0, 3, 6, 7, 9, 12)
+kurtosis(x)
+
+#20. ceiling()
+ceiling(4.3)

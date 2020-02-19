@@ -98,29 +98,80 @@ for (n in 0:10) print(choose(n, k = 0:n))
 
 factorial(100)
 lfactorial(10000)
-
-
-#11. 
-
-#12.
-
-#13.
-
-#14.
-
-#15.
-
-#16.
-
-#17.
-
-#18.
-
-#19.
-
-#20.
+```
+#11. ls()
 
 ```
+var a : int =10
+ls()
+```
+
+#12. geometric()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+geometric<-function(x) exp(sum(log(x))/length(x))
+geometric(x)
+```
+
+#13. armonic
+```
+x<- c(0, 3, 6, 7, 9, 12)
+armonic<-1/mean(1/x)
+armonic
+```
+
+#14. median()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+median(x)
+```
+
+#15. variance()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+variance <- function (x)   sum((x-mean(x))^2)/(length(x)-1) #escrita como una funcion
+variance(x)
+```
+
+#16. range()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+range(x)
+```
+
+#17. quantile()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+quantile(x)
+```
+
+#18. skewness()
+
+```
+x<- c(0, 3, 6, 7, 9, 12)
+library(moments)
+skewness(x)
+```
+
+#19. kurtosis()
+
+```
+library(moments)
+x<- c(0, 3, 6, 7, 9, 12)
+kurtosis(x)
+```
+
+#20. ceiling()
+
+```
+ceiling(4.3)
+```
+
 <a name="item3"></a>
 
 **You are a Data Scientist working for a consulting firm.**
@@ -133,7 +184,7 @@ to help them assess the financial statement of organization X.
 You have been supplied with two vector of data: mounthly revenue and
 expenses for the financial year in quiestion. Your task is to calculate
 the following financial matrics:
-  
+
   - profit for each mounth
 - profit after tax for each month (the tax rate is 30%)
 - profit margin for each month - equal to profit after tax divided by revenue
@@ -171,7 +222,7 @@ profit
 
 # 2 Calculate Tax As 30% Of Profit And Round To 2 Decimal Points
 tax <- round(0.30 * profit, 2)
-tax 
+tax
 
 # 3 Calculate Profit Remaining After Tax Is Deducted
 profit.after.tax <- profit - tax
