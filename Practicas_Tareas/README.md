@@ -5,6 +5,8 @@
 * [1.-Test the Law Of Large Numbers for N random normally distributed numbers with mean = 0, stdev=1](#item1)
 * [2.-Practice find 20 more funtions in R and make an example of it.](#item2)
 * [3.-You are a Data Scientist working for a consulting firm.](#item3)
+* [4.-Practice Fillin the Blanks.](#item4)
+* [5.-Practice 5, Filter Countries.](#item5)
 
 <a name="item1"></a>
 
@@ -408,3 +410,38 @@ Insights:
 Who is this mystert player? It's Dwight Howard! 
 Now that explains a lot. The reason that Dwight Howard's
 Field Goal accuracy is so good is because he almost always scores 2-pointers only. That means he can be close to the basket or even in contact with it. Free throws, on the other hand require the player to stand 15ft (4.57m) away from the hoop. That's  probably why Dwight Howard's Free Throw Accuracy is poor.
+
+
+<a name="item5"></a>
+
+**Practice 5, Filter Countries:**
+The syntax of the proposed examples is used
+
+1. Filter countries by Low income
+*The column was filtered with the records Low income*
+```
+stats[stats$Income.Group=="Low income",]
+```
+2. Filter countries by Lower middle income
+*The column was filtered with the records Low middle income*
+```
+stats[stats$Income.Group=="Lower middle income",]
+```
+3.Filter countries by Upper middle income
+*The column was filtered with the records Upper middle income*
+```
+stats[stats$Income.Group=="Upper middle income",]
+```
+4. Filter by countrie Malta
+*The column was filtered with the record Malta in Country.Name column*
+```
+stats[stats$Country.Name=="Malta",]
+```
+5. Filter by countrie Qatar
+
+
+6. Filter by countrie Netherlands
+
+
+7. Filter by countrie Norway
+
