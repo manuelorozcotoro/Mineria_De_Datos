@@ -2,11 +2,27 @@
 
 **INDEX**
 
+* [Quiz.-Quiz 1, What is Data Minning?](#Q1)
 * [1.-Test the Law Of Large Numbers for N random normally distributed numbers with mean = 0, stdev=1](#item1)
 * [2.-Practice find 20 more funtions in R and make an example of it.](#item2)
 * [3.-You are a Data Scientist working for a consulting firm.](#item3)
 * [4.-Practice Fillin the Blanks.](#item4)
 * [5.-Practice 5, Filter Countries.](#item5)
+
+
+<a name="Q1"></a>
+
+**¿What is data mining?**
+
+Data mining is the study of collecting, cleaning, processing, analyzing, and gaining useful insights from data. A wide variation exists in terms of the problem domains, applications, formulations, and data representations that are encountered in real applications. Therefore, “data mining” is a broad umbrella term that is used to describe these different aspects of data processing.
+
+From an analytical perspective, data mining is challenging because of the wide disparity in the problems and data types that are encountered. For example, a commercial product recommendation problem is very different from an intrusion-detection application, even at the level of the input data format or the problem definition. Even within related classes of problems, the differences are quite significant. For example, a product recommendation problem in a multidimensional database is very different from a social recommendation problem due to the differences in the underlying data type. 
+
+Data mining is the process of discovering useful patterns and trends in large data sets.
+
+*Aggarwal Charu C.. (2015). Data Mining. Switzerland: Springer. 
+Larose, Daniel T.. (2014). Wiley Series on Methods and Applications in Data Mining. Canada: Series Editor.
+
 
 <a name="item1"></a>
 
@@ -467,3 +483,8 @@ stats[stats$Country.Name== "Netherlands",]
 ```
 stats[stats$Country.Name== "Norway",]
 ```
+
+
+
+
+
