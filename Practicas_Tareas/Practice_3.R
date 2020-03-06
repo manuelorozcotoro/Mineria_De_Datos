@@ -25,15 +25,15 @@ profit.after.tax
 
 # 4 Calculate The Profit Margin As Profit After Tax Over Revenue
 #Round To 2 Decimal Points, Then Multiply By 100 To Get %
-profit.margin <- _(_ / _, 2) * _
+profit.margin <- round(profit.after.tax/ revenue, 2) * 100
 profit.margin
 
 # 5 Calculate The Mean Profit After Tax For The 12 Months
-mean_pat <- _(profit.after.tax)
+mean_pat <- mean(profit.after.tax)
 mean_pat
 
 # 6 Find The Months With Above-Mean Profit After Tax
-good.months <- _ _ mean_pat
+good.months <- profit > mean_pat
 good.months
 
 # 7 Bad Months Are The Opposite Of Good Months !
@@ -50,9 +50,9 @@ worst.month
 
 # 10 Convert All Calculations To Units Of One Thousand Dollars
 revenue.1000 <- round(revenue / 1000, 0)
-expenses.1000 <- _(_ _ _, _)
-profit.1000 <- _(_ _ _, _)
-profit.after.tax.1000 <- _(_ _ _, _)
+expenses.1000 <- round(expenses/ 1000, 0)
+profit.1000 <- round(profit/1000,0)
+profit.after.tax.1000 <- round(profit.after.tax/1000, 0)
 
 #Print Results
 revenue.1000
