@@ -44,13 +44,13 @@ DwayneWade_FT <- c(629,432,354,590,534,494,235,308,189,284)
 
 #Matrix for Free Throws
 #Bind the given vectors to form the matrix
-FreeThrows <- _(KobeBryant_FT, JoeJohnson_FT, LeBronJames_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, ChrisPaul_FT, KevinDurant_FT, DerrickRose_FT, DwayneWade_FT)
+FreeThrows <- rbind(KobeBryant_FT, JoeJohnson_FT, LeBronJames_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, ChrisPaul_FT, KevinDurant_FT, DerrickRose_FT, DwayneWade_FT)
 #Remove vectors - we don't need them anymore
-_(KobeBryant_FT, JoeJohnson_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, LeBronJames_FT, ChrisPaul_FT, DerrickRose_FT, DwayneWade_FT, KevinDurant_FT)
+rm(KobeBryant_FT, JoeJohnson_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, LeBronJames_FT, ChrisPaul_FT, DerrickRose_FT, DwayneWade_FT, KevinDurant_FT)
 #Rename the columns
-_(FreeThrows) <- _
+colnames(FreeThrows) <- Seasons
 #Rename the rows
-_(FreeThrows) <- _
+rownames(FreeThrows) <- Players
 
 #Check the matrix
 FreeThrows
