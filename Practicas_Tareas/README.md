@@ -213,6 +213,7 @@ Use:
 mean()
 max()
 min()
+
 ```
 #Data
 revenue <- c(14574.49, 7606.46, 8611.41, 9175.41, 8058.65, 8105.44, 11496.28, 9766.09, 10305.32, 14379.96, 10713.97, 15433.50)
@@ -233,15 +234,15 @@ profit.after.tax
 
 # 4 Calculate The Profit Margin As Profit After Tax Over Revenue
 #Round To 2 Decimal Points, Then Multiply By 100 To Get %
-profit.margin <- _(_ / _, 2) * _
+profit.margin <- round(profit.after.tax/ revenue, 2) * 100
 profit.margin
 
 # 5 Calculate The Mean Profit After Tax For The 12 Months
-mean_pat <- _(profit.after.tax)
+mean_pat <- mean(profit.after.tax)
 mean_pat
 
 # 6 Find The Months With Above-Mean Profit After Tax
-good.months <- _ _ mean_pat
+good.months <- profit > mean_pat
 good.months
 
 # 7 Bad Months Are The Opposite Of Good Months !
@@ -258,9 +259,9 @@ worst.month
 
 # 10 Convert All Calculations To Units Of One Thousand Dollars
 revenue.1000 <- round(revenue / 1000, 0)
-expenses.1000 <- _(_ _ _, _)
-profit.1000 <- _(_ _ _, _)
-profit.after.tax.1000 <- _(_ _ _, _)
+expenses.1000 <- round(expenses/ 1000, 0)
+profit.1000 <- round(profit/1000,0)
+profit.after.tax.1000 <- round(profit.after.tax/1000, 0)
 
 #Print Results
 revenue.1000
@@ -306,6 +307,24 @@ Matrices:
 *Reference by Kirill Eremenko www.superdatascience.com*
 
 ```
+#Instructions for this dataset:
+# You have only been supplied vectors. You will need
+# to create the matrices yourself.
+# Matrices:
+# - FreeThrows
+# - FreeThrowAttempts
+#Kirill Eremenko
+#www.superdatascience.com
+
+#Copyright: These datasets were prepared using publicly available data.
+#           However, theses scripts are subject to Copyright Laws.
+#           If you wish to use these R scripts outside of the R Programming Course
+#           by Kirill Eremenko, you may do so by referencing www.superdatascience.com in your work.
+
+#Comments:
+#Seasons are labeled based on the first year in the season
+#E.g. the 2012-2013 season is preseneted as simply 2012
+
 #Notes and Corrections to the data:
 #Kevin Durant: 2006 - College Data Used
 #Kevin Durant: 2005 - Proxied With 2006 Data
@@ -334,13 +353,13 @@ DwayneWade_FT <- c(629,432,354,590,534,494,235,308,189,284)
 
 #Matrix for Free Throws
 #Bind the given vectors to form the matrix
-FreeThrows <- _(KobeBryant_FT, JoeJohnson_FT, LeBronJames_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, ChrisPaul_FT, KevinDurant_FT, DerrickRose_FT, DwayneWade_FT)
+FreeThrows <- rbind(KobeBryant_FT, JoeJohnson_FT, LeBronJames_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, ChrisPaul_FT, KevinDurant_FT, DerrickRose_FT, DwayneWade_FT)
 #Remove vectors - we don't need them anymore
-_(KobeBryant_FT, JoeJohnson_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, LeBronJames_FT, ChrisPaul_FT, DerrickRose_FT, DwayneWade_FT, KevinDurant_FT)
+rm(KobeBryant_FT, JoeJohnson_FT, CarmeloAnthony_FT, DwightHoward_FT, ChrisBosh_FT, LeBronJames_FT, ChrisPaul_FT, DerrickRose_FT, DwayneWade_FT, KevinDurant_FT)
 #Rename the columns
-_(FreeThrows) <- _
+colnames(FreeThrows) <- Seasons
 #Rename the rows
-_(FreeThrows) <- _
+rownames(FreeThrows) <- Players
 
 #Check the matrix
 FreeThrows
@@ -381,21 +400,17 @@ myplot <- function(z, who=1:10) {
 myplot(FreeThrows)
 myplot(FreeThrowAttempts)
 
-#Part 1 - Free Throw Attempts Per Game 
-#(You will need the Games matrix)
+#Part 1 - Free Throw Attempts Per Game
 myplot(FreeThrowAttempts/Games)
-#Notice how Chris Paul gets few attempts per game
+
 
 #Part 2 - Free Throw Accuracy
 myplot(FreeThrows/ FreeThrowAttempts)
-#And yet Chris Paul's accuracy is one of the highest
-#Chances are his team would get more points if he had more FTA's
-#Also notice that Dwight Howard's FT Accuracy is extremely poor
-#compared to other players. If you recall, Dwight Howard's
+
+
 #Field Goal Accuracy was exceptional:
 myplot(FieldGoals/FieldGoalAttempts)
-#How could this be? Why is there such a drastic difference?
-#We will see just now...
+
 
 #Part 3 - Player Style Patterns Excluding Free Throws
 myplot((Points-FieldGoals)/FreeThrows)
@@ -407,7 +422,7 @@ Insights:
 1. You can see how players' preference for 2 or 3 point shots changes throughout their career. We can see that almost all players in this dataset experiment with their style throughout their careers. Perhaps, the most drastic change in style has been experienced by Joe Johnson.
 
 2. There is one exception. You can see that one player has not changed his style at all - almost always scoring only 2-pointers.
-Who is this mystert player? It's Dwight Howard! 
+Who is this mystert player? It's Dwight Howard!
 Now that explains a lot. The reason that Dwight Howard's
 Field Goal accuracy is so good is because he almost always scores 2-pointers only. That means he can be close to the basket or even in contact with it. Free throws, on the other hand require the player to stand 15ft (4.57m) away from the hoop. That's  probably why Dwight Howard's Free Throw Accuracy is poor.
 
@@ -438,10 +453,17 @@ stats[stats$Income.Group=="Upper middle income",]
 stats[stats$Country.Name=="Malta",]
 ```
 5. Filter by countrie Qatar
-
-
+*The column was filtered with the record Qatar in Country.Name column*
+```
+stats[stats$Country.Name== "Qatar",]
+```
 6. Filter by countrie Netherlands
-
-
+*The column was filtered with the record Netherlands in Country.Name column*
+```
+stats[stats$Country.Name== "Netherlands",]
+```
 7. Filter by countrie Norway
-
+*The column was filtered with the record Norway in Country.Name column*
+```
+stats[stats$Country.Name== "Norway",]
+```
