@@ -2,7 +2,8 @@
 
 **INDEX**
 
-* [Quiz.-Quiz 1, What is Data Minning?](#Q1)
+* [T1.-Task 1, What is Data Minning?](#T1)
+* [T2.-Task 2, Chart types](#T2)
 * [1.-Test the Law Of Large Numbers for N random normally distributed numbers with mean = 0, stdev=1](#item1)
 * [2.-Practice find 20 more funtions in R and make an example of it.](#item2)
 * [3.-You are a Data Scientist working for a consulting firm.](#item3)
@@ -10,7 +11,7 @@
 * [5.-Practice 5, Filter Countries.](#item5)
 
 
-<a name="Q1"></a>
+<a name="T1"></a>
 
 **¿What is data mining?**
 
@@ -22,6 +23,46 @@ Data mining is the process of discovering useful patterns and trends in large da
 
 *Aggarwal Charu C.. (2015). Data Mining. Switzerland: Springer. 
 Larose, Daniel T.. (2014). Wiley Series on Methods and Applications in Data Mining. Canada: Series Editor.
+
+<a name="T2"></a>
+
+**Chart Types**
+Ggplot2 is based on graph grammar, the ideas being that you can build each graph from a few equal components: data, gems, visual marks representing the data points, and a coordinate system.
+To visualize the data, you have to map the variables in the data to the aesthetic properties of the geom such as size, color, and the x and y positions.
+
+**1- A simple graph: Bar graph**
+The basic scheme of the ggplot grammar is:
+```
+ggplot (data.frame, aes (x = variable)) + geom_forma ()
+```
+Example:
+```
+library(ggplot2)
+ggplot(genero, aes(x = SEXO)) + geom_bar()
+```
+**2- Multiple bar graph**
+Example:
+```
+ggplot(genero, aes(P36, fill=SEXO)) + geom_bar(position="dodge")
+```
+**3- Histograms**
+Example:
+```
+ggplot(genero, aes(P19A)) + geom_histogram()
+```
+
+**4- Kernel Density Curves**
+Example:
+```
+
+```
+
+**5- Dot graph**
+Example:
+```
+
+```
+*source: https://rpubs.com/dsulmont/37913 *
 
 
 <a name="item1"></a>
