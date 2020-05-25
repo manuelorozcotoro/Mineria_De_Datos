@@ -598,66 +598,54 @@ Instructions: Change Kernel of code in R “support_Vector_Machine.R”
 Code
 
 ```
-Support Vector Machines (SVM)
-The path of the file to be used is marked according to its location
-```
+# Support Vector Machines (SVM)
+# The path of the file to be used is marked according to its location
 getwd()
 setwd("/Users/Dell/Desktop/DM2105/DataMining-master/MachineLearning/SVM")
 getwd()
-```
-Import the data file
-```
+
+# Import the data file
 dataset = read.csv('Social_Network_Ads.csv')
 dataset = dataset[3:5]
-```
-The target feature is encoded as a factor to have columns at 0 and 1.
-```
+
+# The target feature is encoded as a factor to have columns at 0 and 1.
 dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
-```
-Splitting the dataset into the Training set and Test set
-The caTools package was installed
-with the following statement: install.packages ('caTools')
-```
+
+# Splitting the dataset into the Training set and Test set
+# The caTools package was installed
+# with the following statement: install.packages ('caTools')
 library(caTools)
 set.seed(123)
 split = sample.split(dataset$Purchased, SplitRatio = 0.75)
 training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
-```
-Feature scaling
-To make it take all the data except for the 3rd column
-```
+
+# Feature scaling
+# To make it take all the data except for the 3rd column
 training_set[-3] = scale(training_set[-3])
 test_set[-3] = scale(test_set[-3])
-```
-Check the documentation to find out what Kernel options SVM accepts
-```
+
+#Check the documentation to find out what Kernel options SVM accepts
 ?svm()
-```
-SVM fit to training set
-Package e1072 install.packages ('e1071') was installed
-Changed from "Linear" to "polynomial"
-```
+
+# SVM fit to training set
+# Package e1072 install.packages ('e1071') was installed
+# Changed from "Linear" to "polynomial"
 library(e1071)
 classifier = svm(formula = Purchased ~ .,
                  data = training_set,
                  type = 'C-classification',
                  kernel = 'polynomial')
-```
-Predict the results of the test set
-```
+# Predict the results of the test set
 y_pred = predict(classifier, newdata = test_set[-3])
 y_pred
-```
-Making the confusion matrix
-```
+# Making the confusion matrix
 cm = table(test_set[, 3], y_pred)
 cm
-```
-When changing to Polomial increased 1 error from 20 (Linear) to 21 (Polinomial)
-and in terms of estimation decreased from 2 80 (Linear) to 78 (Polynomial)
-Display of training data results
-```
+# When changing to Polomial increased 1 error from 20 (Linear) to 21 (Polinomial)
+# and in terms of estimation decreased from 2 80 (Linear) to 78 (Polynomial)
+# Display of training data results
+
 library(ElemStatLearn)
 set = training_set
 X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
@@ -672,12 +660,10 @@ plot(set[, -3],
 contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
 points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
-```
-Result: The graph behaves in a curved and linear way trying to separate the error data
 
+#Result: The graph behaves in a curved and linear way trying to separate the error data
 
-Display of test data results
-```
+# Display of test data results
 library(ElemStatLearn)
 set = test_set
 X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
@@ -693,6 +679,7 @@ points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
 points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 
 ```
+
 <a name="P6"></a>
 # PRACTICE 6
 **SVM (Change DataSet)**
@@ -710,13 +697,17 @@ Changed to 3: 4 since this new dataset only contains 4 columns
 dataset = read.csv('datos.csv')
 dataset = dataset[3:4]
 ```
+
 Code the target characteristic as a factor
 In this case the last column
+
 ```
 dataset$cl = factor(dataset$cl, levels = c(0, 1))
 ```
+
 Division of the data set into the training set and the test set
 CaTools library is used and column is assigned to split in this case “cl”
+
 ```
 library(caTools)
 set.seed(123)
@@ -724,13 +715,17 @@ split = sample.split(dataset$cl, SplitRatio = 0.75)
 training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 ```
+
 Scale features for this case -2
+
 ```
 training_set[-2] = scale(training_set[-2])
 test_set[-2] = scale(test_set[-2])
 ```
+
 SVM fit to training set
 The e1071 library was used and the SVM classifier with kernel “sigmoid” was used
+
 ```
 library(e1071)
 classifier = svm(formula = cl ~ .,
@@ -738,17 +733,23 @@ classifier = svm(formula = cl ~ .,
                  type = 'C-classification',
                  kernel = 'sigmoid')
 ```
+
 Prediction of test set results
+
 ```
 y_pred = predict(classifier, newdata = test_set[-2])
 y_pred
 ```
+
 Confusion matrix
+
 ```
 cm = table(test_set[, 2], y_pred)
 cm
 ```
+
 Viewing the results of the training set
+
 ```
 library(ElemStatLearn)
 set = training_set
@@ -768,6 +769,7 @@ points(set, pch = 21, bg = ifelse(set[, 2] == 1, 'green4', 'red3'))
 Result: The graph behaves in a curved and linear way trying to separate the error data
 
 Viewing test set results
+
 ```
 library(ElemStatLearn)
 set = test_set
@@ -888,7 +890,7 @@ text(classifier)
 Result: The data were arranged by sections according to the division of the data according to both columns "x" and "y"
 
 ```
-
+```
 <a name="P8"></a>
 # PRACTICE 8
 **Random Forest**
