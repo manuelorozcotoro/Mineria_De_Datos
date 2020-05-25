@@ -2,10 +2,23 @@
 
 **INDEX**
 
+*Task*
 * [T1.-Task 1, Advanced Graphics](#T1)
 * [T2.-Task 2, What is Jitter?](#T2)
 * [T3.-Task 3, P- Value](#T3)
+* [T4.-Task 4, What does glm?](#T4)
+* [T5.-Task 5, Library ElementStatLearn](#T5)
+
+*Practices*
+
 * [1.-Lineal Regression](#p1)
+* [2.-Multiple Linear Regression (RD.SPEND)](#p2)
+* [3.-Multiple Linear Regression (P.Value)](#p3)
+* [4.-Logistic rRgression (Explanation)](#p4)
+* [5.-Suport Vector Machine ( Change Kernel)](#p5)
+* [6.-SVM (Change DataSet)](#p6)
+* [7.-Decision tree (Change DataSet)](#p7)
+* [8.-Random Forest](#p8)
 
 
 <a name="T1"></a>
@@ -252,3 +265,718 @@ ggplot() +
 ```
 According to the results obtained by the graphs, a logical increase in fat is observed in
 relation to the weight of a person, so that both have a relationship of dependence on each other.
+
+
+<a name="T4"></a>
+# TASK 4
+**What Does glm?**
+
+
+
+<a name="T5"></a>
+# TASK 5
+**Library ElemStatLearn**
+It is a library that uses a set of data published in the book Statistical Learning Elements that contains simulated observations with a nonlinear function in a two-dimensional space (2 predictors).
+
+It is a framework for machine learning based on the fields of statistics and functional analysis.
+
+Statistical learning theory addresses the problem of finding a predictive function based on data. Statistical learning theory has led to successful applications in fields such as computer vision, speech recognition, and bioinformatics.
+
+Source: https://rpubs.com/Joaquin_AR/267926
+
+<a name="P2"></a>
+# PRACTICE 2
+**Multiple Linear Regression (RD.SPEND)**
+
+*Instructions:*
+- Analyze R.DSpend
+- Remove the "." and show that it has weight
+- Make it with the previous used graphs
+- Show graph of real data vs prediction data
+- Change variable
+- Convert to a simple linear model
+
+Folder Localization
+```
+getwd()
+setwd("/users/Dell/Desktop/DataMining-master/MachineLearning/MultipleLinearRegression/")
+getwd()
+```
+Importing the dataset
+```
+dataset <- read.csv('50_Startups.csv')
+```
+Encoding categorical data 
+```
+dataset$State = factor(dataset$State,
+                       levels = c('New York', 'California', 'Florida'),
+                       labels = c(1,2,3))
+```
+Splitting the dataset into the Training set and Test set Install.packages('caTools)
+```
+library(caTools)
+set.seed(123)
+split <- sample.split(dataset$Profit, SplitRatio = 0.8)
+training_set <- subset(dataset, split == TRUE)
+test_set <- subset(dataset, split == FALSE)
+```
+Fitting Simple Linear Regression to the Training set
+```
+regressor = lm(formula = Profit ~ R.D.Spend,
+               data = dataset)
+summary(regressor) 
+```
+Predicting the Test set results
+```
+y_pred = predict(regressor, newdata = test_set) 
+```
+Visualising the Training set results
+```
+library(ggplot2)
+ggplot() +
+  geom_point(aes(x=training_set$R.D.Spend, y=training_set$Profit),
+             color = 'black', size=2) +
+  geom_line(aes(x = training_set$R.D.Spend, y = predict(regressor, newdata = training_set)),
+            color = 'black') +
+  ggtitle('Profit vs R.D.Spend (Training Set)') +
+  xlab('R.D.Spend') +
+  ylab('Profit')
+```
+Visualising the Test set results
+```
+ggplot() +
+  geom_point(aes(x=test_set$R.D.Spend, y=test_set$Profit),
+             color = 'blue', size=2) +
+  geom_line(aes(x = training_set$R.D.Spend, y = predict(regressor, newdata = training_set)),
+            color = 'black') + ggtitle('Profit vs R.D.Spend (Test Set)') +
+  xlab('R.D.Spend') + ylab('Profit')
+
+```
+<a name="P3"></a>
+# PRACTICE 3
+**Multiple Linear Regression (P.Value)**
+
+Instructions: Analyze the follow automation backward elimination function 
+```
+getwd()
+setwd("/users/Dell/Desktop/DataMining-master/MachineLearning/MultipleLinearRegression/")
+getwd()
+```
+Importing the dataset
+```
+dataset <- read.csv('50_Startups.csv')
+```
+Encoding categorical data 
+```
+dataset$State = factor(dataset$State,
+                       levels = c('New York', 'California', 'Florida'),
+                       labels = c(1,2,3))
+
+dataset
+```
+Splitting the dataset into the Training set and Test set
+Install.packages('caTools')
+```
+library(caTools)
+
+set.seed(123)
+
+split <- sample.split(dataset$Profit, SplitRatio = 0.8)
+training_set <- subset(dataset, split == TRUE)
+test_set <- subset(dataset, split == FALSE)
+```
+
+Atomation BackwardElimination Function 
+```
+backwardElimination <- function(x, sl) {
+  numVars = length(x)
+  for (i in c(1:numVars)){
+```
+Fitting Multiple Linear Regression to the Training set
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State)
+   
+   ```
+   regressor = lm(formula = Profit ~ ., data = x)
+    maxVar = max(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"])
+    if (maxVar > sl){
+      j = which(coef(summary(regressor))[c(2:numVars), "Pr(>|t|)"] == maxVar)
+      x = x[, -j]
+    }
+    numVars = numVars - 1
+  }
+  return(summary(regressor))
+}
+
+SL = 0.05
+training_set
+backwardElimination(training_set, SL)
+
+
+par(mfrow=c(2,2))
+plot(regressor) 
+```
+We see that the Linearity exists and Homoskedacity is present (when the variance of the conditional error to the explanatory variables is constant throughout the observations.)
+```
+library(car)
+vif(regressor) # VIF for each var<4, no multicollinearity , Thus we conclude that assumptions hold true
+```
+Backward Elimination
+First iteration (remove State)
+```
+regressor = lm(formula = Profit ~ `R.D.Spend` + Administration + `Marketing.Spend`,
+               data = training_set)
+summary(regressor)
+```
+Second iteration (Remove administration)
+```
+regressor = lm(formula = Profit ~ `R.D.Spend` + `Marketing.Spend`,
+               data = training_set)
+
+summary(regressor)
+```
+Third iteration (Remove Marketing spend)
+```
+regressor <- lm(formula = Profit ~ `R.D.Spend`,
+                data = training_set)
+```
+summary(regressor)
+```
+We will consider Marketing spend in the model since it is very close to the significance level of 0.05 as well including it increases the R- Sqaured
+Final
+```
+regressor = lm(formula = Profit ~ `R.D.Spend` + `Marketing.Spend`,data = training_set)
+summary(regressor)
+```
+
+y_pred = predict(regressor, newdata = test_set)
+y_pred
+test_set$Profit
+plot(y_pred, test_set$Profit)
+
+```
+<a name="P4"></a>
+# PRACTICE 4
+**Logistic Regression (Explanation)**
+
+The csv file is searched from its path
+```
+getwd()
+setwd("/Users/Dell/Desktop/DataMining-master/MachineLearning/LogisticRegression")
+getwd()
+```
+The dataset with which you will work is imported
+```
+dataset <- read.csv('Social_Network_Ads.csv')
+```
+The fields with which we will work are selected
+```
+dataset <- dataset[, 3:5]
+```
+Division of the data set in the training set
+and the test set
+The "caTools" package is activated
+A training and test set is selected using
+package caTools, set.seed (0) is the seed of the generator
+money random numbers. The training set corresponds
+to 75% of the dataset and is chosen randomly.
+```
+library(caTools)
+set.seed(123)
+split <- sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set <- subset(dataset, split == TRUE)
+test_set <- subset(dataset, split == FALSE)
+```
+Scale features
+For classification, it is better to do the characteristic scaling (normalization)
+```
+training_set[, 1:2] <- scale(training_set[, 1:2])
+test_set[, 1:2] <- scale(test_set[, 1:2])
+```
+
+Fitting the logistic regression to the training set
+the linear regression model is applied using
+the glm (generalized linear model) function
+```
+classifier = glm(formula = Purchased ~ .,
+                 family = binomial,
+                 data = training_set)
+```
+Predict the results of the test set
+```
+prob_pred = predict(classifier, type = 'response', newdata = test_set[-3])
+prob_pred
+y_pred = ifelse(prob_pred > 0.5, 1, 0)
+y_pred
+```
+Making the Matrix of Confusion
+It is performed to compare the amount of data matched by the model.
+```
+cm = table(test_set[, 3], y_pred)
+cm
+```
+The data rate correct by
+each model made for Purchased 0 and 1.
+
+We use the ggplo2 library to make graphical plots
+```
+library(ggplot2)
+```
+The linear functions are shown in the graph
+provided by each model.
+```
+ggplot(training_set, aes(x=EstimatedSalary, y=Purchased)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+```
+This graph shows a curve between purchases with respect to the year
+```
+ggplot(training_set, aes(x=Age, y=Purchased)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+```
+This graph shows the purchases with respect to the estimated salary of the test set
+So the line tends to be straighter but rising
+```
+ggplot(test_set, aes(x=EstimatedSalary, y=Purchased)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+```
+Similar behavior is observed with the purchasing test set for the year
+to the training set
+```
+ggplot(test_set, aes(x=Age, y=Purchased)) + geom_point() + 
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE)
+```
+Visualization of the result of the training set
+The "ElemStatLearn" aquete was installed
+```
+install.packages(path_to_source, repos = NULL, type="source")
+install.packages("~/Downloads/ElemStatLearn_2015.6.26.2.tar", repos=NULL, type="source")
+```
+The installed library was used
+A plot was made with it
+showing the previous tests of the training set in K-Neighbors form
+serves to reduce the dimensionality of the data.
+```
+library(ElemStatLearn)
+set = training_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+prob_set = predict(classifier, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
+plot(set[, -3],
+     main = 'Logistic Regression (Training set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+Viewing the test data result
+```
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+prob_set = predict(classifier, type = 'response', newdata = grid_set)
+y_grid = ifelse(prob_set > 0.5, 1, 0)
+plot(set[, -3],
+     main = 'Logistic Regression (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+
+```
+
+<a name="P5"></a>
+# PRACTICE 5
+**Suport Vector Machine (Change Kernel)**
+Instructions: Change Kernel of code in R “support_Vector_Machine.R”
+Code
+
+```
+Support Vector Machines (SVM)
+The path of the file to be used is marked according to its location
+```
+getwd()
+setwd("/Users/Dell/Desktop/DM2105/DataMining-master/MachineLearning/SVM")
+getwd()
+```
+Import the data file
+```
+dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]
+```
+The target feature is encoded as a factor to have columns at 0 and 1.
+```
+dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
+```
+Splitting the dataset into the Training set and Test set
+The caTools package was installed
+with the following statement: install.packages ('caTools')
+```
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+Feature scaling
+To make it take all the data except for the 3rd column
+```
+training_set[-3] = scale(training_set[-3])
+test_set[-3] = scale(test_set[-3])
+```
+Check the documentation to find out what Kernel options SVM accepts
+```
+?svm()
+```
+SVM fit to training set
+Package e1072 install.packages ('e1071') was installed
+Changed from "Linear" to "polynomial"
+```
+library(e1071)
+classifier = svm(formula = Purchased ~ .,
+                 data = training_set,
+                 type = 'C-classification',
+                 kernel = 'polynomial')
+```
+Predict the results of the test set
+```
+y_pred = predict(classifier, newdata = test_set[-3])
+y_pred
+```
+Making the confusion matrix
+```
+cm = table(test_set[, 3], y_pred)
+cm
+```
+When changing to Polomial increased 1 error from 20 (Linear) to 21 (Polinomial)
+and in terms of estimation decreased from 2 80 (Linear) to 78 (Polynomial)
+Display of training data results
+```
+library(ElemStatLearn)
+set = training_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_grid = predict(classifier, newdata = grid_set)
+plot(set[, -3],
+     main = 'SVM (Training set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+Result: The graph behaves in a curved and linear way trying to separate the error data
+
+
+Display of test data results
+```
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_grid = predict(classifier, newdata = grid_set)
+plot(set[, -3], main = 'SVM (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+
+```
+<a name="P6"></a>
+# PRACTICE 6
+**SVM (Change DataSet)**
+The dataset to be used only contains data of "x" and "y" as well as a binary column that shows whether or not there are centiliters "cl".
+
+Establish our work environment
+```
+getwd()
+setwd("/Users/Dell/Desktop/DM1905/DataMining-master/MachineLearning/SVM")
+getwd()
+```
+Import new dataset
+Changed to 3: 4 since this new dataset only contains 4 columns
+```
+dataset = read.csv('datos.csv')
+dataset = dataset[3:4]
+```
+Code the target characteristic as a factor
+In this case the last column
+```
+dataset$cl = factor(dataset$cl, levels = c(0, 1))
+```
+Division of the data set into the training set and the test set
+CaTools library is used and column is assigned to split in this case “cl”
+```
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$cl, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+Scale features for this case -2
+```
+training_set[-2] = scale(training_set[-2])
+test_set[-2] = scale(test_set[-2])
+```
+SVM fit to training set
+The e1071 library was used and the SVM classifier with kernel “sigmoid” was used
+```
+library(e1071)
+classifier = svm(formula = cl ~ .,
+                 data = training_set,
+                 type = 'C-classification',
+                 kernel = 'sigmoid')
+```
+Prediction of test set results
+```
+y_pred = predict(classifier, newdata = test_set[-2])
+y_pred
+```
+Confusion matrix
+```
+cm = table(test_set[, 2], y_pred)
+cm
+```
+Viewing the results of the training set
+```
+library(ElemStatLearn)
+set = training_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('x', 'y')
+y_grid = predict(classifier, newdata = grid_set)
+plot(set[, -3],
+     main = 'SVM (Training set)',
+     xlab = 'x', ylab = 'y',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 2] == 1, 'green4', 'red3'))
+```
+Result: The graph behaves in a curved and linear way trying to separate the error data
+
+Viewing test set results
+```
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('x', 'y')
+y_grid = predict(classifier, newdata = grid_set)
+plot(set[, -3], main = 'SVM (Test set)',
+     xlab = 'x', ylab = 'y',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 2] == 1, 'green4', 'red3'))
+```
+
+<a name="P7"></a>
+# PRACTICE 7
+**SVM (Change DataSet)**
+The usable dataset contains data for "x" and "y" as well as a binary column that shows whether or not there are centiliters "cl"
+
+We establish the work environment
+```
+getwd()
+setwd("/Users/Dell/Desktop/DM2005/DataMining-master/MachineLearning/DesicionThree")
+getwd()
+```
+
+Import the data sets to use
+Changed to 3: 4 since this new dataset only contains 4 columns
+
+```
+dataset = read.csv('datos.csv')
+dataset = dataset[3:4]
+```
+
+Code the target characteristic as a factor
+In this case the last column
+```
+dataset$cl = factor(dataset$cl, levels = c(0, 1))
+```
+Division of the data set into the training set and the test set
+CaTools library is used and column is assigned to split in this case “cl”
+```
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$cl, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+Scale features for this case -2
+```
+training_set[-2] = scale(training_set[-2])
+test_set[-2] = scale(test_set[-2])
+```
+
+SVM fit to training set
+The rpart library was used and the rpart tree classifier was implemented
+```
+library(rpart)
+classifier = rpart(formula = cl ~ .,
+                   data = training_set)
+```
+Prediction of test set results
+
+```
+y_pred = predict(classifier, newdata = test_set[-2], type = 'class')
+y_pred
+```
+Confusion matrix
+```
+cm = table(test_set[, 2], y_pred)
+cm
+```
+
+Viewing the results of the training set
+
+```
+library(ElemStatLearn)
+set = training_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 1]) - 1, max(set[, 1]) +1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('x', 'y')
+y_grid = predict(classifier, newdata = grid_set, type = 'class')
+plot(set[, -3],
+     main = 'Decision Tree Classification (Training set)',
+     xlab = 'x', ylab = 'y',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 2] == 1, 'green4', 'red3'))
+```
+Viewing test set results
+```
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('x', 'y')
+y_grid = predict(classifier, newdata = grid_set, type = 'class')
+plot(set[, -3], main = 'Decision Tree Classification (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 2] == 1, 'green4', 'red3'))
+```
+
+Tree plot
+
+```
+plot(classifier)
+text(classifier)
+```
+
+Result: The data were arranged by sections according to the division of the data according to both columns "x" and "y"
+
+```
+
+<a name="P8"></a>
+# PRACTICE 8
+**Random Forest**
+
+Random Forest Classification
+```
+getwd()
+setwd("/Users/Dell/Desktop/DM2105/DataMining-master/MachineLearning/RandomForest")
+getwd()
+```
+Importing the dataset
+```
+dataset = read.csv('Social_Network_Ads.csv')
+dataset = dataset[3:5]
+```
+Encoding the target feature as factor
+```
+dataset$Purchased = factor(dataset$Purchased, levels = c(0, 1))
+```
+In this case are in 0 and 1s
+
+Splitting the dataset into the Training set and Test sety
+```
+install.packages('caTools')
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$Purchased, SplitRatio = 0.75)
+training_set = subset(dataset, split == TRUE)
+test_set = subset(dataset, split == FALSE)
+```
+Feature Scaling
+
+```
+training_set[-3] = scale(training_set[-3])
+test_set[-3] = scale(test_set[-3])
+```
+Fitting Random Forest Classification to the Training set install.packages('randomForest')
+```
+library(randomForest)
+set.seed(123)
+classifier = randomForest(x = training_set[-3],
+                          y = training_set$Purchased,
+                          ntree = 10)
+```
+Predicting the Test set results
+```
+y_pred = predict(classifier, newdata = test_set[-3])
+```
+Making the Confusion Matrix
+```
+cm = table(test_set[, 3], y_pred)
+```
+Visualising the Training set results
+```
+library(ElemStatLearn)
+set = training_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_grid = predict(classifier, grid_set)
+plot(set[, -3],
+     main = 'Random Forest Classification (Training set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+Visualising the Test set results
+```
+library(ElemStatLearn)
+set = test_set
+X1 = seq(min(set[, 1]) - 1, max(set[, 1]) + 1, by = 0.01)
+X2 = seq(min(set[, 2]) - 1, max(set[, 2]) + 1, by = 0.01)
+grid_set = expand.grid(X1, X2)
+colnames(grid_set) = c('Age', 'EstimatedSalary')
+y_grid = predict(classifier, grid_set)
+plot(set[, -3], main = 'Random Forest Classification (Test set)',
+     xlab = 'Age', ylab = 'Estimated Salary',
+     xlim = range(X1), ylim = range(X2))
+contour(X1, X2, matrix(as.numeric(y_grid), length(X1), length(X2)), add = TRUE)
+points(grid_set, pch = '.', col = ifelse(y_grid == 1, 'springgreen3', 'tomato'))
+points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
+```
+Choosing the number of trees
+```
+plot(classifier)
+
+Result: As you can see graphically, this classifier strives to separate the data into regions gradually, being quite accurate.
+
