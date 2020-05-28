@@ -73,7 +73,7 @@ v + geom_jitter(aes(colour = Studio)) + geom_boxplot( size=0.1,  alpha=0.7, aes(
 
 final score
 
-![Grafica2](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/Grafica2.PNG)
+![Grafica2](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/Grafica2.PNG) 
 
 
 ### Final conclusion
