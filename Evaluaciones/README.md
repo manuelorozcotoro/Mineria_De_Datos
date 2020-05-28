@@ -5,8 +5,8 @@
 The directors of the movie review website are very happy with their previous delivery and now they have a new requirement for you.
 The previous consultant had created a chart for them that is illustrated in the following image.
 
-![Grafica1](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unida_2/Evaluaciones/Grafica1.png)
-
+![Grafica1](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unida_2/Evaluaciones/Grafica1.PNG)
+Evaluaciones/Grafica1.PNG
 
 However the R code used to create the graph has been lost and cannot be recovered.
 
