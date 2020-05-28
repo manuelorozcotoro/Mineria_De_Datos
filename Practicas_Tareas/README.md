@@ -270,7 +270,13 @@ relation to the weight of a person, so that both have a relationship of dependen
 <a name="T4"></a>
 # TASK 4
 **What Does glm?**
+The glm () function of R allows us to fit linear models of many types, including those we fit with lm (), Poisson models, and the logits we will focus on. The basic syntax for obtaining a linear model is glm (dependent ~ independent1 + independent2, family = binomial (), data = data ").
 
+The first argument is an object of the formula class. To the left of the sign ~ we place the dependent variable and to the right, joined by the sign + the independent ones, if we are not specifying an interaction between variables.
+
+The second, family = binomial (), specifies the probability function that we will use. For logit models it is a binomial function. Within the parentheses the link function can be specified. For the binomial distribution family glm () by default use a logit function. If we are interested in a probit function we should specify link = probit.
+
+The third one points to a data.frame where the data is. The column names in the data.frame must match the variables specified in the formula, although they may contain more variables that will be discarded. In the case of previously doing a data manipulation chained with the operator%>% we use. as an anonymous substitute for data.
 
 
 <a name="T5"></a>
