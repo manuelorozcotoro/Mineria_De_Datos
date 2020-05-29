@@ -6,8 +6,9 @@
 * [T1.-Task 1, Advanced Graphics](#T1)
 * [T2.-Task 2, What is Jitter?](#T2)
 * [T3.-Task 3, P- Value](#T3)
-* [T4.-Task 4, What does glm?](#T4)
-* [T5.-Task 5, Library ElementStatLearn](#T5)
+* [T4.-Task 4, Split Ratio() and lm()](#T4)
+* [T5.-Task 5, What does glm?](#T5)
+* [T6.-Task 6, Library ElementStatLearn](#T6)
 
 *Practices*
 
@@ -208,6 +209,31 @@ maybe we should change our mind (and reject the null hypothesis).
 Reference: https://www.mathbootcamps.com/what-is-a-p-value/
 
 
+
+
+<a name="T4"></a>
+# TASK 4
+**Split Ratio and lm()**
+
+### Function Split Ratio() and lm()
+The split () function produces a list of vectors dividing a vector according 
+to the classes specified by a factor. 
+
+In R, the function for () is used much less than in traditional languages, 
+since the structures of the objects are not used. Code that works directly with entire structures 
+is usually clearer and faster
+
+Necessarily, although the data you are working with is given in tables, they are not organized 
+in the way you intend to work on them. The split () function allows classifying data, specific 
+data as a vector, or as a data frame
+
+Lm(): The lower limit is 0 and the upper limit is determined by the highest data value, times a multiplier.
+
+lim(x, mult = 1.1)
+
+Source: https://cran.r-project.org/doc/contrib/R-intro-1.1.0-espanol.1.pdf
+
+
 <a name="P1"></a>
 # PRACTICE 1
 **Lineal Regression**
@@ -267,8 +293,8 @@ According to the results obtained by the graphs, a logical increase in fat is ob
 relation to the weight of a person, so that both have a relationship of dependence on each other.
 
 
-<a name="T4"></a>
-# TASK 4
+<a name="T5"></a>
+# TASK 5
 **What Does glm?**
 The glm () function of R allows us to fit linear models of many types, including those we fit with lm (), Poisson models, and the logits we will focus on. The basic syntax for obtaining a linear model is glm (dependent ~ independent1 + independent2, family = binomial (), data = data ").
 
@@ -279,8 +305,8 @@ The second, family = binomial (), specifies the probability function that we wil
 The third one points to a data.frame where the data is. The column names in the data.frame must match the variables specified in the formula, although they may contain more variables that will be discarded. In the case of previously doing a data manipulation chained with the operator%>% we use. as an anonymous substitute for data.
 
 
-<a name="T5"></a>
-# TASK 5
+<a name="T6"></a>
+# TASK 6
 **Library ElemStatLearn**
 It is a library that uses a set of data published in the book Statistical Learning Elements that contains simulated observations with a nonlinear function in a two-dimensional space (2 predictors).
 
