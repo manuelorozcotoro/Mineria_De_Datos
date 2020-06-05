@@ -262,7 +262,7 @@ points(set, pch = 21, bg = ifelse(set[, 3] == 1, 'green4', 'red3'))
 ```
 final score
 
-![Grafica3](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/GraficaE3.PNG)
+![Grafica3](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/graficaE3.PNG)
 
 ### Video
 https://youtu.be/bb1TK7mKLbY
