@@ -3,12 +3,12 @@ getwd()
 setwd("/Users/Dell/Documents/ITT/MineriaDatos")
 getwd()
 
-# Importe los conjuntos de datos para usar
+# Importamos los conjuntos de datos para usar
 dataset = read.csv('iris.csv')
 dataset = dataset[1:4]
 
 head(dataset)
-# Utilizamos este metodo para sber el numero optimo de clusters
+# Utilizamos este metodo para saber el numero optimo de clusters
 set.seed(6)
 wcss = vector()
 for (i in 1:10) wcss[i] = sum(kmeans(dataset, i)$withinss)
