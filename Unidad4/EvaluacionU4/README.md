@@ -1,31 +1,66 @@
 ## Evaluation 2 Unit 2
 **INSTRUCTIONS**
 
-The directors of the movie review website are very happy with their previous delivery and now they have a new requirement for you.
-The previous consultant had created a chart for them that is illustrated in the following image.
+Develop the following problem with R and RStudio for the knowledge extraction that the problem requires.
+Implement the K-Means grouping model with the Iris.csv dataset found at https://github.com/jcromerohdz/iris using the kmeans () method in R. Once the grouping model is obtained do the corresponding data visualization analysis.
 
-![Grafica1](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/Grafica1.PNG)
-
-
-However the R code used to create the graph has been lost and cannot be recovered.
-
-Your task is to create the code that will re-create the same table making it look as close to the original as possible.
-You will be provided with a new dataset.
-Hint Please note that not all Genres and Studio are used. You will need to filter your dataframe after importing the csv file.
-Evaluation instructions - Delivery time 4 days - At the end put the source code and the explanation in the corresponding branch of your github and also make your explanation of the solution on your google drive. - Finally defend its development in a video of 8-10 min which will serve to give its rating, this video must be uploaded to YouTube to be shared by a link.
-
+At the end of the development, explain in detail the K-Means grouping model and what your observations were in data visualization analysis.
 
 ### Development
 
 We establish the working environment
-
 ```
 getwd()
-setwd("C:\\Users\\acer\\Documents\\mineria\\DataMining-master\\Datasets")
+setwd("/Users/Dell/Documents/ITT/MineriaDatos")
 getwd()
 ```
 
-![Grafica3](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_2/Evaluaciones/graficaE3.PNG)
+We import the data sets to use
+```
+dataset = read.csv('iris.csv')
+dataset = dataset[1:4]
+
+head(dataset)
+```
+
+We use this method to know the optimal number of clusters
+```
+set.seed(6)
+wcss = vector()
+for (i in 1:10) wcss[i] = sum(kmeans(dataset, i)$withinss)
+plot(1:10,
+     wcss,
+     type = 'b',
+     main = paste('The Elbow Method'),
+     xlab = 'Number of clusters',
+     ylab = 'WCSS')
+```
+
+![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/EvaluacionU4/grafica1U4.PNG)
+
+We fit k = 3 to the data set
+```
+set.seed(29)
+kmeans = kmeans(x = dataset, centers = 3)
+y_kmeans = kmeans$cluster
+
+# visualizacion de grupos
+# install.packages('cluster')
+library(cluster)
+clusplot(dataset,
+         y_kmeans,
+         lines = 0,
+         shade = TRUE,
+         color = TRUE,
+         labels = 2,
+         plotchar = FALSE,
+         span = TRUE,
+         main = paste('Clusters of Iris'),
+         xlab = 'Petal.Width',
+         ylab = 'Sepal.Width')
+```
+
+![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/EvaluacionU4/grafica2U4.PNG)
 
 ### Video
-https://youtu.be/bb1TK7mKLbY
+https://www.youtube.com/watch?v=tNER74BqS9I&feature=youtu.be&fbclid=IwAR2hkVAz558c9EBTXq9VG8OL6uWwWrOJNa19z33e5yEta9f8aRZCaK9lj1U
