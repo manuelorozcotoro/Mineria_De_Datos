@@ -36,7 +36,7 @@ plot(1:10,
      ylab = 'WCSS')
 ```
 
-![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/EvaluacionU4/grafica1U4.PNG)
+![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/Unidad4/EvaluacionU4/grafica1U4.PNG)
 
 We fit k = 3 to the data set
 ```
@@ -60,7 +60,7 @@ clusplot(dataset,
          ylab = 'Sepal.Width')
 ```
 
-![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/EvaluacionU4/grafica2U4.PNG)
+![Grafica](https://raw.githubusercontent.com/manuelorozcotoro/Mineria_De_Datos/Unidad_4/Unidad4/EvaluacionU4/grafica2U4.PNG)
 
 ### Video
 https://www.youtube.com/watch?v=tNER74BqS9I&feature=youtu.be&fbclid=IwAR2hkVAz558c9EBTXq9VG8OL6uWwWrOJNa19z33e5yEta9f8aRZCaK9lj1U
